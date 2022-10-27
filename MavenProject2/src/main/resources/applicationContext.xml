@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+        xmlns="http://www.springframework.org/schema/beans"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+
+        xmlns:context="http://www.springframework.org/schema/context"
+
+        xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+
+         http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        ">
+
+    <!--
+    1.开辟新的命名空间
+        xmlns:context="http://www.springframework.org/schema/context"
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+    2.引入文件
+    <context:property-placeholder location="JDBC.properties"/>
+
+     -->
+
+
+    <!--    init 是执行bean的初始化方法，
+            destroy是执行bean的销毁方法-->
+
+    <context:property-placeholder location="JDBC.properties"/>
+
+
+    <bean class="org.example.dao.impl.BookDaoImpl" id="bookDaoImpl" init-method="init" destroy-method="destory"
+          autowire="byName"/>
+
+    <!--    lazy-init 延迟加载-->
+    <bean class="org.example.service.impl.BookServiceImpl" id="bookServiceImpl" lazy-init="true" autowire="">
+        <property name="name" value="${AAA}"/>
+        <property name="list">
+            <list>
+                <value>"123"</value>
+                <value>"124"</value>
+                <value>"125"</value>
+            </list>
+        </property>
+        <property name="map">
+            <map key-type="java.lang.String" value-type="java.lang.String">
+                <entry key="name" value="言传了"/>
+                <entry key="1" value="1"/>
+                <entry key="2" value="1"/>
+                <entry key="3" value="1"/>
+                <entry key="4" value="2"/>
+                <entry key="5" value="2"/>
+                <entry key="7" value="2"/>
+                <entry key="6" value="3"/>
+                <entry key="8" value="4"/>
+                <entry key="9" value=""/>
+            </map>
+        </property>
+    </bean>
+
+    <!--
+        <bean
+              id=""                     bean 的id
+              class=""                  bean 的路径
+              name=""                   bean 的别名 别名可以有多个  用逗号,空格或者分号隔开
+              scope=""                  bean 的初始化方式 单例模式或者非单例模式
+              lazy-init=""              bean 是否 延迟加载
+              init-method=""            bean 的初始化方法
+              destroy-method=""         bean的销毁方法
+              autowire=""               bean是否自动注入  向setter() 方法中自动注入  byName 根据名字进行自动注入     byType 根据类型进行自动注入
+              factory-bean=""           静态工厂模式下构建的bean
+              factory-method="">        工厂模式下的构建方法
+            <property name="" value=""/>
+            <constructor-arg name="" value=""/>
+
+    </bean>-->
+
+
+</beans>

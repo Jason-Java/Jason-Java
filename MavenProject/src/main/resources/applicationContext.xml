@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+<!--    配置ben标签-->
+<!--    name 表示BookDaoImpl的别名，别名可以有多个，别名之间需要用逗号，分号或者空格隔开-->
+<!--    scope 表示创建实体类是用单例模式还是每次都创建一个新的      默认是单例-->
+<!--    <bean id="BookDaoImpl" name="bookDao" class="com.jason.dao.impl.BookDaoImpl" scope="prototype"></bean>-->
+
+
+
+
+    <!--        利用工程创建实例-->
+    <bean id="BookFactory" class="com.jason.factory.BookFactory" factory-method="getBookDaoImplInstance"/>
+
+
+    <bean id="BookServiceImpl" class="com.jason.service.impl.BookServiceImpl">
+<!--        配置service 与DAO的关系-->
+<!--        配置 BookService中对象bookDao的实例
+            name表示BookServiceImpl中的bookDao属性名字
+            ref表示参考bean中哪一个实体-->
+<!--        <property name="bookDao" ref="BookDaoImpl"/>-->
+        <constructor-arg name="i" type="int" value="1" />
+        <constructor-arg name="value" type="java.lang.String" value="1234"/>
+
+    </bean>
+
+</beans>
